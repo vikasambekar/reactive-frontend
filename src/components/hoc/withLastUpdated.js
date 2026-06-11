@@ -4,8 +4,9 @@
  */
 
 const withLastUpdated = (WrappedComponent) => {
-    const EnhancedComponent = (props) => {
-        const lastUpdated = new Date().toLocaleDateString();
+    // eslint-disable-next-line react/display-name
+    return (props) => {
+        const lastUpdated = new Date().toLocaleDateString("en-IN");
 
         return (
             <WrappedComponent
@@ -14,14 +15,6 @@ const withLastUpdated = (WrappedComponent) => {
             />
         );
     };
-
-    EnhancedComponent.displayName = `withLastUpdated(${
-        WrappedComponent.displayName ||
-        WrappedComponent.name ||
-        'Component'
-    })`;
-
-    return EnhancedComponent;
 };
 
 export {withLastUpdated};
