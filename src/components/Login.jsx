@@ -1,4 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {login, loginUser} from "@/src/redux/userSlice";
 
 function Login() {
 
@@ -6,42 +8,20 @@ function Login() {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
 
+    const dispatch = useDispatch();
+
     const handleLogin = async (e) => {
 
         e.preventDefault();
 
-        try {
+        dispatch(
+            loginUser({
+                username,
+                password
+            })
+        );
 
-            const response = await fetch(
-                "http://localhost:8080/api/login",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        username,
-                        password
-                    })
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error("Invalid credentials");
-            }
-
-            const token = await response.text();
-
-            localStorage.setItem("token", token);
-
-            setMessage("Login Successful");
-
-            console.log("JWT Token:", token);
-
-        } catch (error) {
-            console.error(error);
-            setMessage("Login Failed");
-        }
+        setMessage("Login Successful");
     };
 
     return (
@@ -52,7 +32,7 @@ function Login() {
 
                 <div>
                     <label>Username</label>
-                    <br />
+                    <br/>
                     <input
                         type="text"
                         value={username}
@@ -62,11 +42,11 @@ function Login() {
                     />
                 </div>
 
-                <br />
+                <br/>
 
                 <div>
                     <label>Password</label>
-                    <br />
+                    <br/>
                     <input
                         type="password"
                         value={password}
@@ -76,7 +56,7 @@ function Login() {
                     />
                 </div>
 
-                <br />
+                <br/>
 
                 <button type="submit">
                     Login

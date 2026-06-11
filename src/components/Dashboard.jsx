@@ -1,9 +1,17 @@
 import Profile from './Profile';
 import {useEffect, useState} from "react";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
 
     const [profile, setProfile] = useState(null);
+
+    const {
+        username,
+        token
+    } = useSelector(
+        state => state.user
+    );
 
     const fetchData = async () => {
         try {
@@ -12,7 +20,7 @@ const Dashboard = () => {
                 {
                     method: "GET",
                     headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                        "Authorization": `Bearer ${token}`
                     }
                 }
             );
@@ -32,7 +40,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <h3> I am Dash board</h3>
+            <h3> I am Dash board, user from redux: {username}</h3>
             <button onClick={fetchData}>Profile</button>
             <h2>Fetched data : {profile}</h2>
             <Profile/>
