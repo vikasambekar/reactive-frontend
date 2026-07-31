@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import {withLastUpdated} from "@/src/components/hoc/withLastUpdated";
 
 const StatusCard = ({name, lastUpdated}) => {
@@ -10,16 +11,18 @@ const StatusCard = ({name, lastUpdated}) => {
     );
 };
 
-const EnhancedStatusCard = withLastUpdated(StatusCard);
-
 StatusCard.propTypes = {
     name: PropTypes.string.isRequired,
-    lastUpdated: PropTypes.oneOfType(
-        [
-            PropTypes.string,
-            PropTypes.instanceOf(Date)
-        ]
-    ).isRequired,
-}
+    lastUpdated: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(Date)
+    ]).isRequired,
+};
+
+const EnhancedStatusCard = withLastUpdated(StatusCard);
+
+EnhancedStatusCard.propTypes = {
+    name: PropTypes.string.isRequired
+};
 
 export default EnhancedStatusCard;
